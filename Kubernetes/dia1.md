@@ -35,11 +35,28 @@ template: conteudo
  - Instalação Minikube
  - PODS
  - Health Checks
+  Deploy a pod with a health check
+Use readiness probe
+Create health check for an NGINX pod
+Create a health check using TCP sockets
  - Labels e Selectors
+ Labels in pods
+Using selectors
  - Deployments
+ Deployment use cases
+Updating deployments
+Rolling back a deployment
  - Services
+ Service without selectors
+Types Proxy modes
+Service discovery
  - Secrets e ConfigMaps
+
+Store configuration
+Store sensitive information
  - Statefull Sets
+ StatefulSet use cases
+StatefulSet limitations
 
 ---
 # Agenda
@@ -233,8 +250,8 @@ FIXME Desenho Worker node
 
 # PODS
 - Running a container
-- kubectl exec
--
+- kubectl run
+- kubectl
 
 ---
 
