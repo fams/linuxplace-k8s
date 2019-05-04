@@ -763,3 +763,11 @@ kubectl rollout status deployment contador-deployment
 
 ---
 # Rollback
+- Restaura o replicaset anterior
+
+```bash
+kubectl rollout undo deployment contador-deployment
+kubectl rollout status deployment contador-deployment
+
+
+```
