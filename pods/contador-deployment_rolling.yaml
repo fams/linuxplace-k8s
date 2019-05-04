@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contador-deployment
+  labels:
+    app: contador
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: contador
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: contador
+        tier: frontend
+    spec:
+      containers:
+# Teste
+      - name: contador-python
+        image: fams/contador:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name:  REDIS_HOST
+          value: redis.prd.svc.cluster.local
+        - name:  REDIS_PORT
+          value: "63797"
