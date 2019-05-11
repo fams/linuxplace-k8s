@@ -786,8 +786,7 @@ kubectl rollout status deployment contador-deployment
   - LoadBalancer
   - ExternalName
 
-
-.half-image[![Services](img/services-2.png)]
+.half-image[![Services](img/services.png)]
 
 
 ---
@@ -863,12 +862,12 @@ spec:
 ---
 # Integrando tudo
 
-.half-image[![Containers](img/fulldeployment1.png)]
+.full-image[![Containers](img/fulldeployment1.png)]
 
 ---
 # Integrando tudo
 
-.half-image[![Containers](img/fulldeployment2.png)]
+.full-image[![Containers](img/fulldeployment2.png)]
 
 ---
 #DaemonSet
