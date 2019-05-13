@@ -6,7 +6,7 @@ metadata:
     app: contador
     tier: frontend
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: contador
@@ -23,13 +23,12 @@ spec:
         tier: frontend
     spec:
       containers:
-# Teste
       - name: contador-python
-        image: fams/contador:latest
+        image: fams/contador:v1beta2
         ports:
         - containerPort: 5000
         env:
         - name:  REDIS_HOST
-          value: redis.prd.svc.cluster.local
+          value: redis.default.svc.cluster.local
         - name:  REDIS_PORT
-          value: "63797"
+          value: "6379"

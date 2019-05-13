@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+spec:
+  selector:
+    app: contador
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
