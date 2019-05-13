@@ -659,7 +659,7 @@ spec:
         - name:  REDIS_HOST
           value: redis.prd.svc.cluster.local
         - name:  REDIS_PORT
-          value: "63797"
+          value: "6379"
 ```
 
 ---
@@ -706,7 +706,7 @@ spec:
         - name:  REDIS_HOST
           value: redis.prd.svc.cluster.local
         - name:  REDIS_PORT
-          value: "63797"
+          value: "6379"
 ```
 
 ---
