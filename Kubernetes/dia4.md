@@ -298,7 +298,7 @@ spec:
 
 gcloud compute create volume redisdb --zone {DEFZ} --size=1G
 kubectl apply -f redis-disk.yaml
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 
 redis-cli
 > set kubernetes K8s
@@ -307,10 +307,10 @@ redis-cli
 # Apaga pod
 kubectl get nodes -o wide
 kubectl delete pod redis
-kubectl cordon node {node}
+kubectl cordon {node}
 kubectl apply -f redis-disk.yaml
 kubectl uncordon {node}
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 redis-cli
 > get kubernetes
 
@@ -322,7 +322,7 @@ redis-cli
 ```bash
 kubectl apply -f redisdata-claim.yaml
 kubectl apply -f redis-pvc.yaml
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 
 redis-cli
 > get kubernetes
@@ -333,7 +333,7 @@ kubectl delete pod redis
 kubectl cordon node {node}
 kubectl apply -f redis-pvc.yaml
 kubectl uncordon {node}
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 redis-cli
 > get kubernetes
 
@@ -343,10 +343,10 @@ redis-cli
 #Usando Provisionamento
 
 ```bash
-kubectl-apply -f fast.yaml
+kubectl apply -f fast.yaml
 kubectl apply -f redisdata-claim.yaml
 kubectl apply -f redis-pvc.yaml
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 
 redis-cli
 > get kubernetes
@@ -357,7 +357,7 @@ kubectl delete pod redis
 kubectl cordon node {node}
 kubectl apply -f redis-pvc.yaml
 kubectl uncordon {node}
-kubectl port-forward pod/redis 6397:6397
+kubectl port-forward pod/redis 6379:6379
 redis-cli
 > get kubernetes
 
@@ -471,7 +471,13 @@ template:conteudo
 
 ---
 # Instalando o Nginx como ingress
+ - Exercicio
 
+
+---
+# Network Policy
+
+-
 
 
 ---
@@ -595,3 +601,7 @@ ingress:
 
 ---
 # exercicio
+
+---
+# Monitoramento
+-
