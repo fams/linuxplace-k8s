@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Curso Kubernetes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+        font-size: medium;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .small * {
+        font-size: small !important;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      .logo-linux img{
+        height: 90px;
+        float: right;
+        margin-right: -50px;
+      }
+
+      .full-image img{
+        width: 100%;
+        top:50%;
+        /*vertical-align: middle;*/
+        margin-top: 20px;
+      }
+      .full-image-overload img{
+        width: 70%;
+        top:10%;
+        overflow: auto;
+        /*vertical-align: middle;*/
+        margin-top:50px;
+        position: absolute;
+      }
+      .full-image-height img{
+        height: 100%;
+/*        top:50%;*/
+        /*vertical-align: middle;*/
+        margin-top: 20px;
+      }
+      .half-image img{
+        width: 50%;
+        top:50%;
+        /*vertical-align: middle;*/
+        margin-top: 50px;
+      }
+     .conteudo table,td,th{
+        width: 100%;
+        top:50%;
+        vertical-align: middle;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+        /*vertical-align: middle;*/
+        margin-top: 40px;
+      }
+      .nb-table table,td,th {
+        border: none;
+        padding: 0px;
+      }
+      .nb-table td {
+        width: 50%;
+        margin-top: 0px;
+      }
+      .footnote {
+        position: absolute;
+        font-size: small;
+        bottom: 3em;
+        right: 3em;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# My Awesome Presentation
+
+???
+
+Notes for the _first_ slide!
+
+---
+
+# Agenda
+
+1. Introduction
+2. Deep-dive
+3. ...
+
+[NOTE]: Note that you need remark.js alongside this html file, but no internet connection.
+---
+
+# Introduction
+
+    </textarea>
+    <script src="out/remark-latest.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      remark.macros.scale = function (percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
+      var slideshow = remark.create({
+        sourceUrl: 'dia4.md',
+        highlightLanguage: 'javascript',
+        countIncrementalSlides: false
+     });
+    </script>
+  </body>
+</html>
