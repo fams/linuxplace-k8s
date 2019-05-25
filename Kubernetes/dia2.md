@@ -369,8 +369,6 @@ spec:
 # Exemplo DaemonSet
 
 ```yaml
-controllers/daemonset.yaml
-
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -424,21 +422,7 @@ spec:
 
 ---
 # YAML
-```
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx
-  labels:
-    app: nginx
-spec:
-  ports:
-  - port: 80
-    name: web
-  clusterIP: None
-  selector:
-    app: nginx
----
+```yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -476,6 +460,49 @@ spec:
 ```
 
 ---
-#Secrets & ConfigMaps
--
+# Secrets & ConfigMaps
+- Armazenamento de configuração
+- Repositório seguro para credenciais e informações sensíveis
 
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contador-conf
+  namespace: default
+data:
+  REDIS_HOST: redis.default.svc.cluster.local
+  REDIS_PORT: "6379"
+```
+
+```bash
+kubectl apply -f  contador-configmap.yaml
+```
+```bash
+echo "fams" > username.txt
+echo "123456" > password
+kubectl create secret generic contador-secret --from-file=./username.txt --from-file=./password.txt
+```
+---
+# Utilizando ConfigMap
+- Pode ser montado como arquivos
+- Pode ser montado como variável
+
+```yaml
+...        env:
+          - name: REDIS_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: contador-conf
+                key: REDIS_HOST
+          - name: REDIS_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: contador-conf
+                key: REDIS_PORT
+...
+```
+# Utilizando secrets
+```bash
+kubectl create secret
+``

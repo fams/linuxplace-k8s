@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    name: redis
+    tier: backend
+    app: redis
+spec:
+  containers:
+  - name: redis
+    image: redis
+    ports:
+    - containerPort: 6379
+    volumeMounts:
+    - name: redis-data
+      mountPath: /data
+  volumes:
+  - name: redis-data
+    persistentVolumeClaim:
+      claimName: redisdata-pvc
+  

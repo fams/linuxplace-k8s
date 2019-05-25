@@ -29,14 +29,14 @@ template: splash
 ---
 template: conteudo
 # Agenda
-- Dia 2
+- Dia 3
  - Instalando K8s hard way
  - Namespaces e RBAC
  - Networking
  - Ingress
 
-- Dia 3
-  - Arquitetura Kubernetes Avancado
+- Dia 4
+  - Volumes
   - Logging
   - Monitoramento
   - CI/CD
@@ -161,3 +161,45 @@ template: splash
 ## ou como fazer tudo isso do jeito fácil
 
 ---
+template: conteudo
+# Google Kubernetes Engine
+- Kubernetes Gerenciado do Goolge
+- Kubernetes Certificado, PCI-DSS, HIPPA
+- Ciclo de vida gerenciado
+  - no mínimo duas `minor versions` disponíveis (1.11, 1.12) podendo chegar a 3
+  - Patch  (1.X.Y) semanais
+  - atualizações de segurança assim que disponíveis marcadas como tal (1.13.4-gke.2)
+- Gerencia o ciclo de vida dos masters
+- Interface com gcloud e console do GKE
+- Paga somente o custo de processamento
+
+---
+# Tem mais
+- Criação rápida e simplificada
+- Padrões de clusters comummente usados
+- Node Autoscale
+- Private Cluster
+- GVisor
+- Integração com StackDriver
+- Ingress Multi-Cluster
+
+---
+# Criação do cluster
+## DEMO
+
+---
+# NodePools
+- Conjunto de nodes do mesmo tipo
+- Auto-escaláveis
+- Recebem tag e podem ser usado para separação de containers
+- Podem usar Máquinas preemptivas
+- Upgrade separado
+
+---
+# Node Auto Repair (GKE)
+- Habilitado por node pool
+- Monitoraa estado do node
+- node drain e replace
+
+---
+
