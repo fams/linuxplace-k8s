@@ -21,7 +21,10 @@ set -o nounset                              # Treat unset variables as an error
 helmins() {
  kubectl -n kube-system create serviceaccount tiller
  kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
- helm init --service-account=tiller
+helm init \
+--service-account=tiller \
+--upgrade \
+--override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}' 
 }
 helmdel() {
  kubectl -n kube-system delete deployment tiller-deploy
@@ -29,4 +32,3 @@ helmdel() {
  kubectl -n kube-system delete serviceaccount tiller
  
 }
-

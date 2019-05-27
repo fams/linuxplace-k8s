@@ -473,6 +473,7 @@ template:conteudo
 # Instalando o Nginx como ingress
  - Exercicio
 
+helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true
 
 ---
 # Network Policy
