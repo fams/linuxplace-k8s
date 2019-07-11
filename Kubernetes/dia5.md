@@ -67,6 +67,18 @@ template: splash
 
 ---
 template: conteudo
+# Autenticação
+- Baseado em plugins
+- Token ou Password staticos
+- Certificados X.509
+- Webhook
+- OIDC
+- Bootstrap Token
+- Authentication Proxy
+- Webhook Token Auth
+
+
+---
 # Authorization Modes
 - ABAC
 - RBAC
@@ -184,3 +196,9 @@ template:conteudo
 - Se eu der ssh num node e acessar um pod, assim corrompendo suas credenciais, os pods estando isolados eu não consigo acessar outro node.
 
 ---
+template: splash
+#Bibliografia
+
+---
+# Bibliografia
+- https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
