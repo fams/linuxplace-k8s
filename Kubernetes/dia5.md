@@ -202,3 +202,5 @@ template: splash
 ---
 # Bibliografia
 - https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf
+- https://kubernetes-security.info/
+- https://kubernetes.io
