@@ -173,16 +173,64 @@ template: splash
 template:conteudo
 # Protegendo a API
 
+Um usuário que possui todas as permissões de acesso à API REST equivale a um root access em qualquer máquina do cluster.
+
+**Insecure port**
+- Por default, o API Server escuta na porta 8080. Se ela estiver aberta, qualquer um pode ganhar controle total sobre o cluster inteiro. Portanto é necessário fechar essa porta com --insecure-port==0
+Você pode checar se a insecure port está aberta através de um *curl*:
+
+```bash
+$ curl <IP address>:8080
+```
+
+```json
+{
+"paths": [
+"/api",
+"/api/v1",
+"/apis" ]
+}
+```
 
 ---
-template:conteudo
+# Protegendo a API
+
+---
+
+
 # Kubelet
 
+Se usuários desautorizados podem acessar a API ou qualquer node do cluster para executar qualquer ação que seja, possivelmente tais usuários podem obter total controle do cluster. Para que isso não aconteça você pode:
+
+- Limitar o acesso à API através de requisições autenticadas;
+- Usar o controle de acesso para declinar ações desautorizadas (Access Control com RBAC).
 
 ---
-template:conteudo
+# Kubelet
+
+Especificamente, a nível de kubelet pode-se:
+
+- Desabilitar acesso anônimo;
+- Assegurar que as requisições sejam autorizadas;
+- Limitar as permissões dos kubelets;
+- Desligar a porta read-only. Tal porta permite que usuários desconhecidos acessem informações sobre workloads que estão rodando;
+- Deployments antigos usam cAdvisor para prover métricas, porém nas versões mais novas do Kubernetes isso foi substituído. Desligar a porta do cAdvisor pode evitar a exposição de informações sobre os workloads. Se for necessário usar o cAdvisor, este deve ser usado junto a um DaemonSet.  
+
+---
 # Executando o ETCD de forma segura
 
+- Defina <span style="color:blue">**``--cert-file``**</span> e <span style="color:blue">**``--key-file``**</span> para habilitar conexões HTTPS no ETCD;
+- Defina <span style="color:blue">**``--client-cert-auth=true``**</span> para garantir que os acessos necessitarão de autenticação;
+- Defina <span style="color:blue">**``--trusted-ca-file``**</span> para especificar o certificado de autoridade que assinou os cretificados dos clientes;
+- Defina <span style="color:blue">**``--auto-tls=false``**</span> para não permitir a geração e o uso de certificados auto assinados;
+- Defina <span style="color:blue">**``--peer-client-cert-auth=true``**</span> para que os nodes do ETCD se comuniquem entre si de forma segura;
+- Defina <span style="color:blue">**``--peer-auto-tls=false``**</span> e especifique <span style="color:blue">**``--peer-cert-file``**</span>, <span style="color:blue">**``--peer-key-file``**</span> e <span style="color:blue">**``--peer-trusted-ca-file``**</span> para que haja correspondência entre as configurações do API Server e o ETDC de forma que eles se comuniquem com sucesso;
+- Defina <span style="color:blue">**``--etcd-cafile``**</span> no API Server para o certificado de autoridade que assinou o certificado do ETCD;
+- Especifique <span style="color:blue">**``--etcd-certfile``**</span> e <span style="color:blue">**``--etcd-keyfile``**</span> para o API Server possa se identificar para o ETCD.
+
+???
+
+- Qualquer pessoa que tiver permissões read-write no ETCD pode efetivamente controlar o cluster. Permitir acessos read-only pode evitar possíveis ataques. Sendo assim, é necessário assegurar que apenas acessos autenticados serão permitidos.
 
 ---
 template:conteudo
