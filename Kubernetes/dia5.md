@@ -48,7 +48,7 @@ template: splash
 
 ---
 template: conteudo
-# Aspéctos da Segurança no Kubernetes
+# Aspectos da Segurança no Kubernetes
 - Configurar o Cluster de forma segura
 - Proteger a applicação
 - Proteger Credenciais
@@ -150,7 +150,7 @@ roleRef:
 ```
 
 ---
-# Best Pratices
+# Best Practices
 -  Use RBAC!
 
 - Desabilitar o Automount
@@ -175,6 +175,56 @@ template:conteudo
 
 
 ---
+template:conteudo
+# Kubelet
+
+
+---
+template:conteudo
+# Executando o ETCD de forma segura
+
+
+---
+template:conteudo
+# Kubernetes Dashboard
+
+- Permitir apenas acesso autenticado
+- Usar RBAC
+- Estar certo de que a *Dashboard service account* possui acesso limitado
+- Não expor o seu Dashboard para uma rede pública
+
+Recomendações de configuração do Dashboard podem ser consultadas em https://github.com/kubernetes/dashboard/wiki/Installation#recommended-setup
+
+???
+
+- somente usuários conhecidos podem ter acesso ao Dashboard
+- limitar o acesso dos usuários através de roles para executar apenas coisas específicas
+- a service account deve ter o mínimo de permissões possíveis
+- Dashboard de Kubernetes não é pra expor pra internet, né, gente?! pelo amor de Deus. É pra acessar internamente. Até uma criança sabe disso.
+
+---
+template:conteudo
+# Validando a configuração do cluster
+
+Uma vez estabelecido o cluster Kubernetes é possível executar dois testes a fim de validar a segurança da configuração:
+
+- **CIS Security Benchmark**, cujo benchmark baseia-se em uma série de recomendações para estabelecer a segurança de um deployment. O teste consiste em validar as configurações dos seus deployments em relação a esse benchmark, mesmo que você não tenha adotado todas as recomendações;
+
+- **Teste de penetração**, no qual o teste consiste em explorar o cluster sob uma perspectiva de um hacker.
+
+---
+template:conteudo
+# Para entender mais sobre os testes
+
+**CIS Security Benchmark**
+ - Benchmark for Kubernetes - https://www.cisecurity.org/benchmark/kubernetes/.
+ - CIS Benchmark for Docker - https://www.cisecurity.org/benchmark/docker/.
+
+**Penetration Testing**  
+ - Kube-hunter - ferramenta open source para teste de penetração especíco para Kubernetes disponível em https://github.com/aquasecurity/kube-hunter
+
+---
+
 template: splash
 # Isolamento
 
