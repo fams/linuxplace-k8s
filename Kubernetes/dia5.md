@@ -31,27 +31,50 @@ template: conteudo
 # Agenda
 - Dia 5
   - Security
-  - Cluster
+    - Introdução
+    - Autenticação e Autorização
+    - Network Policy
+    - Cluster Components Security
+    - POD Security
+    - Node Security
+    - Isolamento
+    - Logging
+
+
+
+---
+template: splash
+# Introdução
 
 ---
 template: conteudo
-# Kubernetes Security
-- RBAC
-- Network Policy
-- Cluster Components Security
-- POD Security
-- Node Security
-- Isolamento
-- Logging
+# Aspéctos da Segurança no Kubernetes
+- Configurar o Cluster de forma segura
+- Proteger a applicação
+- Proteger Credenciais
+- Princípios
+  - Segurança em Profundidade
+  - Menor Privilégio
+  - Limitar a superfície de ataque
 
 ---
+# Vetores de Ataque
+.full-image[![Containers](img/k8scomponentes-AttackVectors.png)]
+
+---
+template: splash
+# Autenticação e Autorização
+
+---
+template: conteudo
 # Authorization Modes
 - ABAC
-- Node authorizer
 - RBAC
+- Node Authorization
 - Webhook
 
 ---
+template: conteudo
 # RBAC
  - Entity
  - Resource
@@ -115,9 +138,38 @@ roleRef:
 ```
 
 ---
+# Best Pratices
+-  Use RBAC!
 
+- Desabilitar o Automount
+
+- Use ServiceAccounts Dedicados
+
+---
+template: splash
+# Network Policies
+
+---
 template:conteudo
+# Netwok Policies
+
+---
+template: splash
+# Cluster Components Security
+
+---
+template:conteudo
+# Protegendo a API
+
+
+---
+template: splash
 # Isolamento
+
+---
+template:conteudo
+# Separando serviços críticos
+
 - O que é crítico e sensível precisa estar separado do que não é
 - Sensíveis conversam com sensíveis
 - Não sensíveis conversam com sensíveis de forma controlada
