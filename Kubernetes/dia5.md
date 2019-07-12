@@ -195,9 +195,13 @@ $ curl <IP address>:8080
 ---
 # Protegendo a API
 
+- É necessário proteger a rede que acessa o API Server usando um firewall ou uma VPN a fim de proteger o aumento da probabilidade de vazamento de informações via ataques em endpoints críticos acessados por usuários anônimos.
+
+???
+- "Enabling anonymous access to discovery endpoints could also increase the likelihood of leaking information about the software that's running on the system to an attacker"
+- As configurações default do RBAC permitem acesso limitado ao API Server para usuários anônimos.
+
 ---
-
-
 # Kubelet
 
 Se usuários desautorizados podem acessar a API ou qualquer node do cluster para executar qualquer ação que seja, possivelmente tais usuários podem obter total controle do cluster. Para que isso não aconteça você pode:
@@ -214,7 +218,13 @@ Especificamente, a nível de kubelet pode-se:
 - Assegurar que as requisições sejam autorizadas;
 - Limitar as permissões dos kubelets;
 - Desligar a porta read-only. Tal porta permite que usuários desconhecidos acessem informações sobre workloads que estão rodando;
-- Deployments antigos usam cAdvisor para prover métricas, porém nas versões mais novas do Kubernetes isso foi substituído. Desligar a porta do cAdvisor pode evitar a exposição de informações sobre os workloads. Se for necessário usar o cAdvisor, este deve ser usado junto a um DaemonSet.  
+- Deployments antigos usam cAdvisor para prover métricas, porém nas versões mais novas do Kubernetes isso foi substituído. Desligar a porta do cAdvisor pode evitar a exposição de informações sobre os workloads. Se for necessário usar o cAdvisor, este deve ser usado junto a um DaemonSet;
+- Cada kubelet precisa de um client certificate para se comunicar com a API. É recomendado gerar esses certificados periodicamente com --rotate-certificates.   
+
+---
+# Executando o ETCD de forma segura
+
+Qualquer pessoa que tiver permissões read-write no ETCD pode efetivamente controlar o cluster. Permitir acessos read-only pode evitar possíveis ataques. Sendo assim, é necessário assegurar que apenas acessos autenticados serão permitidos.
 
 ---
 # Executando o ETCD de forma segura
@@ -227,10 +237,6 @@ Especificamente, a nível de kubelet pode-se:
 - Defina <span style="color:blue">**``--peer-auto-tls=false``**</span> e especifique <span style="color:blue">**``--peer-cert-file``**</span>, <span style="color:blue">**``--peer-key-file``**</span> e <span style="color:blue">**``--peer-trusted-ca-file``**</span> para que haja correspondência entre as configurações do API Server e o ETDC de forma que eles se comuniquem com sucesso;
 - Defina <span style="color:blue">**``--etcd-cafile``**</span> no API Server para o certificado de autoridade que assinou o certificado do ETCD;
 - Especifique <span style="color:blue">**``--etcd-certfile``**</span> e <span style="color:blue">**``--etcd-keyfile``**</span> para o API Server possa se identificar para o ETCD.
-
-???
-
-- Qualquer pessoa que tiver permissões read-write no ETCD pode efetivamente controlar o cluster. Permitir acessos read-only pode evitar possíveis ataques. Sendo assim, é necessário assegurar que apenas acessos autenticados serão permitidos.
 
 ---
 template:conteudo
