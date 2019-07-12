@@ -159,11 +159,82 @@ roleRef:
 
 ---
 template: splash
-# Network Policies
+# Proteção de rede
 
 ---
 template:conteudo
-# Netwok Policies
+# Network Policies
+- Network Policies são políticas de proteção em nivel de rede e transporte semelhantes a um firewall
+- Tem como pré-requisito um plugin de rede compatível (CNI)
+- Permite definição de políticas padrão por namespaces e cluster
+
+---
+# Network Policies
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 6379
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 5978
+```
+
+---
+# Network Policies
+- Campos obrigatórios: apiVersion, kind, e metadata
+
+- spec: Onde efetivamente vão as regras
+
+- podSelector: regras para agrupamento de pods que receberão as políticas
+
+- policyTypes: Ingress, Egress ou ambos
+
+---
+# Ingress
+```yaml
+  ...
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          user: alice
+      podSelector:
+        matchLabels:
+          role: client
+  ...
+      ports:
+    - protocol: TCP
+      port: 6379
+```
 
 ---
 template: splash
@@ -214,7 +285,7 @@ Especificamente, a nível de kubelet pode-se:
 - Assegurar que as requisições sejam autorizadas;
 - Limitar as permissões dos kubelets;
 - Desligar a porta read-only. Tal porta permite que usuários desconhecidos acessem informações sobre workloads que estão rodando;
-- Deployments antigos usam cAdvisor para prover métricas, porém nas versões mais novas do Kubernetes isso foi substituído. Desligar a porta do cAdvisor pode evitar a exposição de informações sobre os workloads. Se for necessário usar o cAdvisor, este deve ser usado junto a um DaemonSet.  
+- Deployments antigos usam cAdvisor para prover métricas, porém nas versões mais novas do Kubernetes isso foi substituído. Desligar a porta do cAdvisor pode evitar a exposição de informações sobre os workloads. Se for necessário usar o cAdvisor, este deve ser usado junto a um DaemonSet.
 
 ---
 # Executando o ETCD de forma segura
@@ -268,7 +339,7 @@ template:conteudo
  - Benchmark for Kubernetes - https://www.cisecurity.org/benchmark/kubernetes/.
  - CIS Benchmark for Docker - https://www.cisecurity.org/benchmark/docker/.
 
-**Penetration Testing**  
+**Penetration Testing**
  - Kube-hunter - ferramenta open source para teste de penetração especíco para Kubernetes disponível em https://github.com/aquasecurity/kube-hunter
 
 ---
