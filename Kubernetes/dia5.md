@@ -36,11 +36,7 @@ template: conteudo
     - Network Policy
     - Cluster Components Security
     - POD Security
-    - Node Security
     - Isolamento
-    - Logging
-
-
 
 ---
 template: splash
@@ -295,7 +291,11 @@ Especificamente, a nível de kubelet pode-se:
 ---
 # Executando o ETCD de forma segura
 
-Qualquer pessoa que tiver permissões read-write no ETCD pode efetivamente controlar o cluster. Permitir acessos read-only pode evitar possíveis ataques. Sendo assim, é necessário assegurar que apenas acessos autenticados serão permitidos.
+- Qualquer pessoa que tiver permissões read-write no ETCD pode efetivamente controlar o cluster. Permitir acessos read-only pode evitar possíveis ataques.
+- Sendo assim, é necessário assegurar que apenas acessos autenticados serão permitidos.
+
+---
+# Medidas a serem tomadas:
 
 - Defina <span style="color:blue">**``--cert-file``**</span> e <span style="color:blue">**``--key-file``**</span> para habilitar conexões HTTPS no ETCD;
 - Defina <span style="color:blue">**``--client-cert-auth=true``**</span> para garantir que os acessos necessitarão de autenticação;
@@ -344,6 +344,46 @@ template:conteudo
 
 **Penetration Testing**
  - Kube-hunter - ferramenta open source para teste de penetração especíco para Kubernetes disponível em https://github.com/aquasecurity/kube-hunter
+
+---
+template: splash
+# Pod Security
+
+---
+template: conteudo
+# Protegendo as imagens dos containers
+
+- **Escanear as imagens dos containers**
+ - O objetivo é detectar e reportar vulnerabilidades nos pacotes de uma imagem
+- **Modificar as imagens retirando as vulnerabilidades**
+ - Uma vez identificadas as vulnerabilidades, o ideal é atualizar a imagem com a nova versão do pacote. Deve ser feito a partir do rebuild da imagem e, então, dar um redeploy nos containers baseado nessa nova imagem "fixed version"
+- **Melhores práticas CI/CD**
+ - O escaneamento das imagens pode ser integrado à esteira CI/CD para automatizar a rejeição de imagens. Uma boa prática é usar essa automatização antes mesmo de armazená-la em um container registry.
+
+---
+# Protegendo as imagens dos containers
+
+- **Image storage**
+ - As imagens devem ser armazenadas em um "private registry". Você consegue controlar quem terá permissões de ler e escrever imagens
+- **Corrigir versões de imagens e garantir que a versão correta será executada**
+ -  Usar controle de versão semântico para tags de imagens. Uma forma alternativa é referenciar a versão de uma imagem por sua SHA digest.  
+ - Usar AlwaysPullImages admission controller para assegurar a versão correta das imagens e garantir que o pod não ignore as credenciais que estão autorizadas a acessar essa imagem.
+- **Image Trust e Supply Chain**
+ - Garantir que a imagem obtida é de fato genuína, íntegra
+- **Minimizar imagens para reduzir a superfície de ataque**
+ - Minimizar a quantidade de código incluída na imagem diminui a probabilidade de vulnerabilidade.
+
+???
+
+- Normalmente a versão de uma imagem é referenciada por uma tag. Contudo, tags são mutáveis e uma mesma versão de uma imagem pode receber várias tags diferentes.
+- Existem ferramentas que auxiliam a validar a procedência das imagens, armazenando e assegurando metadados de imagem, incluindo assinaturas para validar a sua integridade.
+
+---
+# Executando containers de forma segurança
+
+- Usar menos privilégios para realizar tarefas à mão
+- Fazer apenas as montagens mínimas necessárias no host
+- Limitar a comunicação entre aplicações e com o mundo externo a um conjunto definido e específico de conexões
 
 ---
 
